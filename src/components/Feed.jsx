@@ -10,16 +10,17 @@ export default function Feed() {
   useEffect(()=>{
     axios.get("http://localhost:3000/posts")
     .then((res)=>{
-      console.log(res.data)
+      setPosts(res.data.posts);
+      console.log(res.data);
     })
   },[]);
 
   return (
-    <div className='bg-[#1c1c1c] w-screen h-screen font-serif flex flex-col items-center justify-center'>
+    <div className='bg-[#1c1c1c] w-screen h-auto font-serif flex flex-col items-center justify-center'>
     {
       posts.length > 0 ?  (
         posts.map((post)=> (
-          <div key={post._id} className="bg-gray-300 p-5 pr-10 w-fit">
+          <div key={post._id} className="bg-gray-300 mx-50 my-50 mb-5 pr-10 w-fit">
             <img className="rounded ml-3 mt-2" src={post.image} alt={post.caption} />
             <p className="text-3xl mt-5 ml-3 font-bold">{post.caption}</p>
           </div>

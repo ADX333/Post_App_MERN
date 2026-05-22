@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 
 function CreatePost() {
+  
+
+
   const [preview, setPreview] = useState(null)
 
   const handleImage = (e) => {
