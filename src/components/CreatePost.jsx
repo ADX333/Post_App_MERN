@@ -1,11 +1,21 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CreatePost() {
-  
-
-
+  const navigate=useNavigate();
   const [preview, setPreview] = useState(null)
+
+  async function handleSubmit(e){
+    e.preventDefault();
+    const formData= new FormData(e.target);
+
+    axios.post("http://localhost:3000/create-post", formData).then((res)=>{
+      navigate("/feed")
+    })
+  } 
+
+
 
   const handleImage = (e) => {
     const file = e.target.files[0]
@@ -15,7 +25,7 @@ function CreatePost() {
     <div className="bg-[#1c1c1c] h-screen text-amber-100 border-2 flex flex-col border-amber-300 font-serif">
       <div className='m-5 flex-col justify-center align-middle'>
       <h1 className="mb-10 font-extrabold text-3xl">Create Post</h1>
-      <form className='flex flex-col'>
+      <form className='flex flex-col' onSubmit={(e)=>handleSubmit(e)}>
         <input onChange={handleImage} className="bg-gray-700 border-2 border-amber-300 hover:scale-103 transition-all duration-300 rounded p-2 w-100 mb-2 cursor-pointer" type="file" placeholder='Choose an image' name="image" accept="image/*"></input>
         {preview && <img src={preview} className="w-40 h-40 object-cover rounded mb-2"/>}
         <input className="bg-gray-700 border-2 border-amber-300 p-1 hover:scale-103 transition-all duration-300 rounded w-100 mb-2" type="text" name="caption" required placeholder='Caption'/>
