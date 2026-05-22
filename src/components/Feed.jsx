@@ -1,11 +1,18 @@
-import React, { useState } from 'react'
-
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
 export default function Feed() {
   const [posts, setPosts]=useState([{
     _id:"1",
     image:"https://img.freepik.com/premium-photo/suv-is-parked-field-with-bridge-background_1153744-182204.jpg?semt=ais_hybrid&w=740&q=80",
     caption: "PBX1"
   }]);
+
+  useEffect(()=>{
+    axios.get("http://localhost:3000/posts")
+    .then((res)=>{
+      console.log(res.data)
+    })
+  },[]);
 
   return (
     <div className='bg-[#1c1c1c] w-screen h-screen font-serif flex flex-col items-center justify-center'>
